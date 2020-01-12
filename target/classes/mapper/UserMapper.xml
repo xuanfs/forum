@@ -9,4 +9,7 @@
         insert into user (name,accout_id,token,gmt_create,gmt_modified) values (#{name},#{accoutId},#{token},#{gmtCreate},#{gmtModified})
     </insert>
 
+    <select id="finfByToken" resultType="cn.xuanfs.forum.entity.User">
+        select * from user where token = #{token}
+    </select>
 </mapper>

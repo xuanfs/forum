@@ -11,4 +11,6 @@ import org.springframework.stereotype.Repository;
 public interface UserMapper {
 
     void insert(User user);
+
+    User finfByToken(String token);
 }
