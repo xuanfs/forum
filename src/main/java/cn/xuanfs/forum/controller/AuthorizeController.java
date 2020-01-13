@@ -41,8 +41,6 @@ public class AuthorizeController {
     @Autowired
     private UserMapper userMapper;
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
     @GetMapping("/callback")
     public String callback(String code, String state, HttpServletRequest request, HttpServletResponse response){
 
@@ -55,27 +53,33 @@ public class AuthorizeController {
 
         String token = githubProvider.getAccessToken(accessToken);
         GithubUser gitUser = githubProvider.getUser(token);
-
+        System.out.println("gitUser:"+gitUser);
         if(gitUser != null){
-            //登录成功 写cookie 和session
-            User user = new User();
-            user.setToken(UUID.randomUUID().toString());
-            user.setName(gitUser.getName());
-            user.setAccoutId(String.valueOf(gitUser.getId()));
-
-            Date date = new Date();
-            String format = sdf.format(date);
-            try {
-                user.setGmtCreate(sdf.parse(format));
-                user.setGmtModified(user.getGmtCreate());
-            } catch (ParseException e) {
-                e.printStackTrace();
+            User isUser = userMapper.findByAccoutId(String.valueOf(gitUser.getId()));
+            if(isUser == null){
+                //登录成功 写cookie 和session
+                User user = new User();
+                user.setToken(UUID.randomUUID().toString());
+                user.setName(gitUser.getName());
+                user.setAccoutId(String.valueOf(gitUser.getId()));
+                user.setAvatarUrl(gitUser.getAvatar_url());
+                Date date = new Date();
+                user.setGmtCreate(date);
+                user.setGmtModified(date);
+                userMapper.insert(user);
+                response.addCookie(new Cookie("id",user.getId().toString()));
+                request.getSession().setAttribute("user",user);
+                request.getSession().setAttribute("username",user.getName());
+                request.getSession().setMaxInactiveInterval(30*60);
+            }else{
+                response.addCookie(new Cookie("id",isUser.getId().toString()));
+                request.getSession().setAttribute("user",isUser);
+                request.getSession().setAttribute("username",isUser.getName());
+                request.getSession().setMaxInactiveInterval(30*60);
             }
-            userMapper.insert(user);
-            response.addCookie(new Cookie("token", token));
-            request.getSession().setAttribute("user",user);
-            request.getSession().setAttribute("username",user.getName());
-            request.getSession().setMaxInactiveInterval(30);
+
+
+
             return "redirect:/";
         }else{
             //登录失败 重新登录

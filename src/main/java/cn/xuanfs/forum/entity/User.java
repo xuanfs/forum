@@ -15,4 +15,5 @@ public class User {
     private String token;
     private Date gmtCreate;
     private Date gmtModified;
+    private String avatarUrl;
 }

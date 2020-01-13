@@ -6,10 +6,14 @@
 <mapper namespace="cn.xuanfs.forum.mapper.UserMapper">
     <!--插入用户-->
     <insert id="insert" parameterType="cn.xuanfs.forum.entity.User">
-        insert into user (name,accout_id,token,gmt_create,gmt_modified) values (#{name},#{accoutId},#{token},#{gmtCreate},#{gmtModified})
+        insert into user (name,accout_id,token,gmt_create,gmt_modified,avatar_url) values (#{name},#{accoutId},#{token},#{gmtCreate},#{gmtModified},#{avatarUrl})
     </insert>
 
-    <select id="finfByToken" resultType="cn.xuanfs.forum.entity.User">
-        select * from user where token = #{token}
+    <select id="findById" resultType="cn.xuanfs.forum.entity.User">
+        select * from user where id = #{id}
+    </select>
+
+    <select id="findByAccoutId" resultType="cn.xuanfs.forum.entity.User">
+        select * from user  where ACCOUT_ID = #{accoutId}
     </select>
 </mapper>

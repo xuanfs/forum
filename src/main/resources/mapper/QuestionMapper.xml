@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指定和哪个Mapper映射器接口对应 -->
+<mapper namespace="cn.xuanfs.forum.mapper.QuestionMapper">
+    <!--插入用户-->
+    <insert id="create" parameterType="cn.xuanfs.forum.entity.Question">
+        insert into question
+          (title,description,gmt_create,gmt_modified,creator,tag)
+        values (#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag})
+</insert>
+
+
+</mapper>
