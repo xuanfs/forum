@@ -42,7 +42,7 @@ public class PublishController {
         question.setGmtCreate(date);
         question.setGmtModified(date);
 
-        User user = (User)request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         if(user == null){
             model.addAttribute("msg","用户未登陆");
             return "publish";

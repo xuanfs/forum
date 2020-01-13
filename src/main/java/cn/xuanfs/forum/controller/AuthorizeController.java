@@ -53,7 +53,7 @@ public class AuthorizeController {
 
         String token = githubProvider.getAccessToken(accessToken);
         GithubUser gitUser = githubProvider.getUser(token);
-        System.out.println("gitUser:"+gitUser);
+
         if(gitUser != null){
             User isUser = userMapper.findByAccoutId(String.valueOf(gitUser.getId()));
             if(isUser == null){

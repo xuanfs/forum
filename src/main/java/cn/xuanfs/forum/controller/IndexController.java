@@ -41,7 +41,9 @@ public class IndexController {
                 }
             }
         }
+
         List<Question> questions = questionService.list();
+        questions.forEach(System.out::println);
         model.addAttribute("questions",questions);
         return "index";
     }

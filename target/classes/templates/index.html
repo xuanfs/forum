@@ -36,7 +36,7 @@
                     <li th:if="${session.user != null}"><a href="/publish">发布</a></li>
                     <li th:if="${session.user == null}"><a href="https://github.com/login/oauth/authorize?client_id=Iv1.0cae86197c0a5171&redirect_uri=http://localhost:8888/callback&scope=user&state=1">登录</a></li>
                     <li class="dropdown" th:if="${session.user != null}">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.username}"> <span class="caret"></span></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" th:text="${session.username}"> 我<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="#">消息中心</a></li>
                             <li><a href="#">个人信息</a></li>
@@ -56,14 +56,15 @@
                 <div class="media" th:each="question:${questions}">
                     <div class="media-left">
                         <a href="#">
-                            <img class="media-object" th:src="${question.user.avatarUrl}">
+                            <img class="media-object"  th:src="${question.user.avatarUrl}">
                         </a>
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading" th:text="${question.title}">标题</h4>
                         <span th:text="question.description"></span><br>
-                        <span class="text-desc"> <span th:text="${question.commentCount}"></span> 个回复 • <span th:text="${question.viewCount}"></span> 次浏览 • 1 小时前</span>
+                        <span class="text-desc"> <span th:text="${question.commentCount}"></span> 个回复 • <span th:text="${question.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm:ss')}"></span></span>
                     </div>
+                    <hr>
                 </div>
 
             </div>
