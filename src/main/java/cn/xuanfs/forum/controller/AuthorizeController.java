@@ -67,7 +67,7 @@ public class AuthorizeController {
                 user.setGmtCreate(date);
                 user.setGmtModified(date);
                 userMapper.insert(user);
-                response.addCookie(new Cookie("id",user.getId().toString()));
+                response.addCookie(new Cookie("id",String.valueOf(user.getId())));
                 request.getSession().setAttribute("user",user);
                 request.getSession().setAttribute("username",user.getName());
                 request.getSession().setMaxInactiveInterval(30*60);

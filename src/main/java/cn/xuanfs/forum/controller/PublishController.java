@@ -2,6 +2,8 @@ package cn.xuanfs.forum.controller;
 
 import cn.xuanfs.forum.entity.Question;
 import cn.xuanfs.forum.entity.User;
+import cn.xuanfs.forum.mapper.QuestionMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,7 +20,8 @@ import java.util.Date;
 @Controller
 public class PublishController {
 
-
+    @Autowired
+    private QuestionMapper questionMapper;
 
     @GetMapping("/publish")
     public String toPublish(){
@@ -45,8 +48,8 @@ public class PublishController {
             return "publish";
         }
         question.setCreator(user.getId());
+        questionMapper.create(question);
         model.addAttribute("msg","发布成功");
-
         return "publish";
     }
 }
