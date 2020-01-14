@@ -4,6 +4,7 @@ import cn.xuanfs.forum.entity.Question;
 import cn.xuanfs.forum.entity.User;
 import cn.xuanfs.forum.mapper.QuestionMapper;
 import cn.xuanfs.forum.mapper.UserMapper;
+import cn.xuanfs.forum.util.ForumUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,30 +17,30 @@ import java.util.List;
 public class QuestionService {
 
     @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
     private QuestionMapper questionMapper;
 
     @Autowired
-    private UserMapper userMapper;
+    private ForumUtil forumUtil;
 
-    //问题列表添加用户
-    public List<Question> listAddUser(List<Question> list){
-        if(list.size()!=0){
-            for (Question question:list) {
-                User user = userMapper.findById(String.valueOf(question.getCreator()));
-                question.setUser(user);
-            }
-            return list;
-        }
-        return null;
-    }
+
 
     public List<Question> list(){
         List<Question> list = questionMapper.list();
-        return listAddUser(list);
+        return forumUtil.listAddUser(list);
     }
 
     public List<Question> listByCreator(String creator){
         List<Question> list = questionMapper.listByCreator(creator);
-        return listAddUser(list);
+        return forumUtil.listAddUser(list);
+    }
+
+    public Question findById(Integer id) {
+        Question question = questionMapper.findById(id);
+        User user = userMapper.findById(String.valueOf(question.getCreator()));
+        question.setUser(user);
+        return question;
     }
 }

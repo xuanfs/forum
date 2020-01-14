@@ -35,38 +35,6 @@ public class IndexController {
 
     @GetMapping("/")
     public String index(HttpServletRequest request, Model model,@RequestParam(name = "pageNumber",required = false,defaultValue = "1") int pageNumber){
-        Cookie[] cookies = request.getCookies();
-        if(cookies != null){
-            for (Cookie cookie:cookies) {
-                if("id".equals(cookie.getName())){
-                    String id = cookie.getValue();
-                    User user = userMapper.findById(id);
-                    if(user != null){
-                        request.getSession().setAttribute("user",user);
-                        request.getSession().setAttribute("username",user.getName());
-                    }
-                    break;
-                }
-            }
-        }
-        //pageSize:2	pages:6	pageNum:4	pageTotal:11
-        /**
-         *  1
-         *         1 2 3
-         *  2
-         *       1 2 3 4
-         *  3
-         *     1 2 3 4 5
-         *  4
-         *     2 3 4 5 6
-         *  5
-         *     3 4 5 6
-         *  6
-         *     4 5 6
-         *  如果当前页小于等于 1+2
-         *  如果当前页大于等于 pages-2
-         *
-         */
         Page page = PageHelper.startPage(pageNumber, 5);
         List<Question> questions = questionService.list();
         arrayList.clear();
