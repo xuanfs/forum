@@ -21,8 +21,8 @@ public class QuestionService {
     @Autowired
     private UserMapper userMapper;
 
-    public List<Question> list(){
-        List<Question> list = questionMapper.list();
+    //问题列表添加用户
+    public List<Question> listAddUser(List<Question> list){
         if(list.size()!=0){
             for (Question question:list) {
                 User user = userMapper.findById(String.valueOf(question.getCreator()));
@@ -31,5 +31,15 @@ public class QuestionService {
             return list;
         }
         return null;
+    }
+
+    public List<Question> list(){
+        List<Question> list = questionMapper.list();
+        return listAddUser(list);
+    }
+
+    public List<Question> listByCreator(String creator){
+        List<Question> list = questionMapper.listByCreator(creator);
+        return listAddUser(list);
     }
 }

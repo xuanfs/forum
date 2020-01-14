@@ -15,5 +15,9 @@
         select * from question
     </select>
 
+    <select id="listByCreator" resultType="cn.xuanfs.forum.entity.Question">
+        select * from question where creator = #{creator}
+    </select>
+
 
 </mapper>

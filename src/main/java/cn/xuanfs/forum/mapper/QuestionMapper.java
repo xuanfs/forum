@@ -12,4 +12,6 @@ public interface QuestionMapper {
     void create(Question question);
 
     List<Question> list();
+
+    List<Question> listByCreator(String creator);
 }
