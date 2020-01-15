@@ -2,6 +2,7 @@ package cn.xuanfs.forum.service;
 
 import cn.xuanfs.forum.entity.Question;
 import cn.xuanfs.forum.entity.User;
+import cn.xuanfs.forum.exception.CustomException;
 import cn.xuanfs.forum.mapper.QuestionMapper;
 import cn.xuanfs.forum.mapper.UserMapper;
 import cn.xuanfs.forum.util.ForumUtil;
@@ -39,8 +40,12 @@ public class QuestionService {
 
     public Question findById(Integer id) {
         Question question = questionMapper.findById(id);
+        if(question == null){
+            throw new CustomException(CustomException.Status.QuestionError);
+        }
         User user = userMapper.findById(String.valueOf(question.getCreator()));
         question.setUser(user);
+        questionMapper.updateView(question);
         return question;
     }
 }

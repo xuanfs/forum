@@ -59,7 +59,12 @@ public class PublishController {
             return "publish";
         }
         if(question.getId()!=null){
-            questionMapper.updateQuestion(question);
+            Integer result = questionMapper.updateQuestion(question);
+            System.out.println("result:"+result);
+            if(result <= 0){
+                model.addAttribute("msg","修改失败");
+                return "publish";
+            }
             model.addAttribute("msg","修改成功");
             return "publish";
         }

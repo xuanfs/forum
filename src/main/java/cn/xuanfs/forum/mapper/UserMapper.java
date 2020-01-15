@@ -15,4 +15,6 @@ public interface UserMapper {
     User findById(String id);
 
     User findByAccoutId(String accoutId);
+
+    void update(User user);
 }

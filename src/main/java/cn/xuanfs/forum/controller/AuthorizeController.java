@@ -56,6 +56,7 @@ public class AuthorizeController {
 
         if(gitUser != null){
             User isUser = userMapper.findByAccoutId(String.valueOf(gitUser.getId()));
+            Date date = new Date();
             if(isUser == null){
                 //登录成功 写cookie 和session
                 User user = new User();
@@ -63,13 +64,15 @@ public class AuthorizeController {
                 user.setName(gitUser.getName());
                 user.setAccoutId(String.valueOf(gitUser.getId()));
                 user.setAvatarUrl(gitUser.getAvatar_url());
-                Date date = new Date();
                 user.setGmtCreate(date);
                 user.setGmtModified(date);
                 userMapper.insert(user);
                 request.getSession().setAttribute("user",user);
                 request.getSession().setMaxInactiveInterval(30*60);
             }else{
+                isUser.setAvatarUrl(gitUser.getAvatar_url());
+                isUser.setGmtModified(date);
+                userMapper.update(isUser);
                 request.getSession().setAttribute("user",isUser);
                 request.getSession().setMaxInactiveInterval(30*60);
             }

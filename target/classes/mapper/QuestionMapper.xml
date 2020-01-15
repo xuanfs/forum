@@ -17,6 +17,10 @@
           where id=#{id}
     </update>
 
+    <update id="updateView">
+        update question set view_count=view_count+1 where id=#{id}
+    </update>
+
     <select id="list" resultType="cn.xuanfs.forum.entity.Question" >
         select * from question
     </select>

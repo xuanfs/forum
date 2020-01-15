@@ -17,5 +17,7 @@ public interface QuestionMapper {
 
     Question findById(Integer id);
 
-    void updateQuestion(Question question);
+    Integer updateQuestion(Question question);
+
+    void updateView(Question question);
 }
