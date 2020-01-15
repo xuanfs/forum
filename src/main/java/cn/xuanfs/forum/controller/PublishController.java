@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +29,17 @@ public class PublishController {
         return "publish";
     }
 
+    @GetMapping("/publish/{id}")
+    public String edit(@PathVariable(name = "id")Integer id,
+                       Model model){
+        Question question = questionMapper.findById(id);
+        model.addAttribute("title",question.getTitle());
+        model.addAttribute("description",question.getDescription());
+        model.addAttribute("tag",question.getTag());
+        model.addAttribute("id",question.getId());
+        return "publish";
+    }
+
     @PostMapping("/publish")
     public String doPublish(Question question, HttpServletRequest request, Model model){
         System.out.println("question:"+question);
@@ -39,12 +51,16 @@ public class PublishController {
             return "publish";
         }
         Date date = new Date();
-        question.setGmtCreate(date);
         question.setGmtModified(date);
 
         User user = (User) request.getSession().getAttribute("user");
         if(user == null){
             model.addAttribute("msg","用户未登陆");
+            return "publish";
+        }
+        if(question.getId()!=null){
+            questionMapper.updateQuestion(question);
+            model.addAttribute("msg","修改成功");
             return "publish";
         }
         question.setCreator(user.getId());

@@ -11,6 +11,12 @@
         values (#{title},#{description},#{gmtCreate},#{gmtModified},#{creator},#{tag})
     </insert>
 
+    <update id="updateQuestion" parameterType="cn.xuanfs.forum.entity.Question">
+        update question set
+            title=#{title},description=#{description},gmt_modified=#{gmtModified},tag=#{tag}
+          where id=#{id}
+    </update>
+
     <select id="list" resultType="cn.xuanfs.forum.entity.Question" >
         select * from question
     </select>

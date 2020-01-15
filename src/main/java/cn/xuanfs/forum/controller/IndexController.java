@@ -55,4 +55,10 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/logout")
+    public String logoout(HttpServletRequest request){
+        request.getSession().removeAttribute("user");
+        return "redirect:/";
+    }
+
 }

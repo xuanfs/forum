@@ -3,11 +3,11 @@
 <head>
     <title>发布 - 镇杰社区</title>
     <!--引入bootstrap-->
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.css">
-    <link rel="stylesheet" href="css/forum.css">
-    <script src="js/jquery-3.4.1.min.js"></script>
-    <script src="js/bootstrap.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/css/forum.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
 
 </head>
 <body>
@@ -22,6 +22,7 @@
                 <hr>
 
                 <form action="/publish" method="post">
+                    <input id="id" name="id" type="hidden" th:value="${id}">
                     <div class="form-group">
                         <label for="title">问题标题 （必填,简单扼要）:</label>
                         <input th:value="${title}" type="text" class="form-control" id="title" name="title" placeholder="问题标题...">
@@ -32,7 +33,7 @@
                     </div>
                     <div class="form-group">
                         <label for="title">添加标签:</label>
-                        <input type="text" class="form-control" id="tag" name="tag" placeholder="输入标签 以，号分割">
+                        <input th:value="${tag}" type="text" class="form-control" id="tag" name="tag" placeholder="输入标签 以，号分割">
                     </div>
 
                     <button type="submit" class="btn btn-success btn-publish">发布</button>

@@ -16,4 +16,6 @@ public interface QuestionMapper {
     List<Question> listByCreator(String creator);
 
     Question findById(Integer id);
+
+    void updateQuestion(Question question);
 }
