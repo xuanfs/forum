@@ -17,16 +17,20 @@
           where id=#{id}
     </update>
 
+    <update id="updateCommentById">
+        update question set comment_count=comment_count+1 where id=#{id}
+    </update>
+
     <update id="updateView">
         update question set view_count=view_count+1 where id=#{id}
     </update>
 
     <select id="list" resultType="cn.xuanfs.forum.entity.Question" >
-        select * from question
+        select * from question order by gmt_create desc
     </select>
 
     <select id="listByCreator" resultType="cn.xuanfs.forum.entity.Question">
-        select * from question where creator = #{creator}
+        select * from question where creator = #{creator} order by gmt_create desc
     </select>
 
     <select id="findById" resultType="cn.xuanfs.forum.entity.Question">

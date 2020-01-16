@@ -16,6 +16,7 @@ import javax.naming.Name;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,7 +32,7 @@ public class IndexController {
     @Autowired
     private QuestionService questionService;
 
-    private ArrayList arrayList = new ArrayList();
+    private List arrayList = new ArrayList();
 
     @GetMapping("/")
     public String index(HttpServletRequest request, Model model,@RequestParam(name = "pageNumber",required = false,defaultValue = "1") int pageNumber){
@@ -48,6 +49,7 @@ public class IndexController {
                 arrayList.add(page.getPageNum()+i);
             }
         }
+
         model.addAttribute("pageMax",page.getPages());
         model.addAttribute("questions",questions);
         model.addAttribute("pages",arrayList);

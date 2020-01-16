@@ -70,6 +70,7 @@ public class AuthorizeController {
                 request.getSession().setAttribute("user",user);
                 request.getSession().setMaxInactiveInterval(30*60);
             }else{
+
                 isUser.setAvatarUrl(gitUser.getAvatar_url());
                 isUser.setGmtModified(date);
                 userMapper.update(isUser);

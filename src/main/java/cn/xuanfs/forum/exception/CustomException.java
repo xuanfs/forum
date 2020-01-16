@@ -8,9 +8,11 @@ import lombok.Setter;
  * @author xzj
  */
 public class CustomException extends RuntimeException{
+
     private Status message;
 
     public CustomException(Status message) {
+
         this.message = message;
     }
 
@@ -19,15 +21,25 @@ public class CustomException extends RuntimeException{
         return message.getMessage();
     }
 
+
     public enum Status{
 
-        QuestionError("您查找的问题不在，要不换个问题试试？？？");
 
+        QuestionError(400,"您查找的问题不在，要不换个问题试试？？？"),
+        LoginError(1001,"请先登录"),
+        CommentError(1002,"评论失败，请稍后再试"),
+        CommentSuccess(200,"评论成功");
+
+        @Getter
+        @Setter
+        private int code;
         @Getter
         @Setter
         private String message;
 
-        Status(String message){
+
+        Status(int code,String message){
+            this.code = code;
             this.message = message;
         }
     }

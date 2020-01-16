@@ -38,7 +38,7 @@ public class QuestionService {
         return forumUtil.listAddUser(list);
     }
 
-    public Question findById(Integer id) {
+    public Question findById(Long id) {
         Question question = questionMapper.findById(id);
         if(question == null){
             throw new CustomException(CustomException.Status.QuestionError);
@@ -48,4 +48,5 @@ public class QuestionService {
         questionMapper.updateView(question);
         return question;
     }
+
 }

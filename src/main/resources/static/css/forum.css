@@ -29,3 +29,28 @@ body{
 .jumbotron{
     margin: 70px;
 }
+.isLoginComment{
+    margin-top: 50px;
+    margin-left: 300px;
+    margin-bottom: 50px;
+}
+.comment{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.login{
+    margin-top: 100px;
+    margin-left: 250px;
+    width: 700px;
+}
+.comment_hr{
+    margin-top: 0px;
+}
+.menu{
+    color: #999;
+}
+.menu .ico{
+    margin-right: 6px;
+    font-size: 15px;
+}
+

@@ -15,9 +15,11 @@ public interface QuestionMapper {
 
     List<Question> listByCreator(String creator);
 
-    Question findById(Integer id);
+    Question findById(Long id);
 
     Integer updateQuestion(Question question);
 
     void updateView(Question question);
+
+    void updateCommentById(Question question);
 }

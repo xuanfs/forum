@@ -30,7 +30,7 @@ public class PublishController {
     }
 
     @GetMapping("/publish/{id}")
-    public String edit(@PathVariable(name = "id")Integer id,
+    public String edit(@PathVariable(name = "id")Long id,
                        Model model){
         Question question = questionMapper.findById(id);
         model.addAttribute("title",question.getTitle());
@@ -42,7 +42,6 @@ public class PublishController {
 
     @PostMapping("/publish")
     public String doPublish(Question question, HttpServletRequest request, Model model){
-        System.out.println("question:"+question);
         //判断标题和问题是否为空
         if(question.getTitle()==""||question.getDescription()==""){
             model.addAttribute("title",question.getTitle());
@@ -50,14 +49,16 @@ public class PublishController {
             model.addAttribute("msg","标题或问题不能为空");
             return "publish";
         }
-        Date date = new Date();
-        question.setGmtModified(date);
 
+        //获取添加问题用户信息
         User user = (User) request.getSession().getAttribute("user");
         if(user == null){
             model.addAttribute("msg","用户未登陆");
             return "publish";
         }
+        Date date = new Date();
+        question.setGmtModified(date);
+        //查看是否修改问题
         if(question.getId()!=null){
             Integer result = questionMapper.updateQuestion(question);
             System.out.println("result:"+result);
@@ -68,6 +69,7 @@ public class PublishController {
             model.addAttribute("msg","修改成功");
             return "publish";
         }
+        question.setGmtCreate(date);
         question.setCreator(user.getId());
         questionMapper.create(question);
         model.addAttribute("msg","发布成功");
