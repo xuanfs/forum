@@ -24,8 +24,8 @@ public class CustomException extends RuntimeException{
 
     public enum Status{
 
-
-        QuestionError(400,"您查找的问题不在，要不换个问题试试？？？"),
+        SubCommentError(400,"您评论的回复不存在，要不换个评论试试？"),
+        QuestionError(400,"您查找的问题不在，要不换个问题试试？"),
         LoginError(1001,"请先登录"),
         CommentError(1002,"评论失败，请稍后再试"),
         CommentSuccess(200,"评论成功");

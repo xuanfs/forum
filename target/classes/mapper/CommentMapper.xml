@@ -8,4 +8,16 @@
         insert into comment (parent_id,type,content,commentator,gmt_modified,gmt_create)
           value (#{parentId},#{type},#{content},#{commentator},#{gmtModified},#{gmtCreate})
     </insert>
+
+    <select id="findCommentByParentId" resultType="cn.xuanfs.forum.entity.Comment">
+        select * from comment where type = #{type} and parent_id = #{parentId} order by gmt_create desc
+    </select>
+
+    <select id="findCommentById" resultType="cn.xuanfs.forum.entity.Comment">
+        select * from comment where id = #{parentId}
+    </select>
+
+    <update id="updateCommentCount">
+        update `comment` set comment_count=comment_count+1 where id= #{id}
+    </update>
 </mapper>

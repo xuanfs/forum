@@ -10,6 +10,11 @@ body{
     float: right;
     margin-bottom: 15px;
 }
+.btn-comment{
+    float: right;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
 .media-object{
     width: 40px;
     height: 40px;
@@ -47,10 +52,29 @@ body{
     margin-top: 0px;
 }
 .menu{
+    margin-top:5px;
     color: #999;
 }
 .menu .ico{
     margin-right: 6px;
     font-size: 15px;
+    cursor: pointer;
 }
-
+.menu .ico:hover {
+    color: #499cf3;
+}
+.comment_question_hr{
+    margin: 0px;
+}
+.blue{
+    color: #499cf3;
+}
+.sub_comment{
+    border-radius: 5px;
+    margin-top: 10px;
+    border: 1px solid #eee;
+    padding-top: 10px;
+}
+.count{
+    margin-left: -11px;
+}

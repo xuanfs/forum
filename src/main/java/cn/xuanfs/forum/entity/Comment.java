@@ -17,4 +17,7 @@ public class Comment {
     private Date gmtCreate;
     private Date gmtModified;
     private Long likeCount;
+    private int commentCount;
+    private User user;
+
 }
