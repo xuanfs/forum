@@ -26,10 +26,12 @@ public class QuestionService {
     @Autowired
     private ForumUtil forumUtil;
 
+    public List<Question> hostQuestion(){
+        return questionMapper.hostQuestion();
+    }
 
-
-    public List<Question> list(){
-        List<Question> list = questionMapper.list();
+    public List<Question> list(String search){
+        List<Question> list = questionMapper.list(search);
         return forumUtil.listAddUser(list);
     }
 
@@ -49,4 +51,12 @@ public class QuestionService {
         return question;
     }
 
+    public List<Question> findAlikeByTag(Question question) {
+        if(question.getTag() != null || question.getTag() != ""){
+            String tag = question.getTag().replace(",", "|");
+            List<Question> alikeByTag = questionMapper.findAlikeByTag(question.getId(), tag);
+            return alikeByTag;
+        }
+        return null;
+    }
 }

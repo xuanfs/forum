@@ -1,6 +1,7 @@
 package cn.xuanfs.forum.mapper;
 
 import cn.xuanfs.forum.entity.Question;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public interface QuestionMapper {
 
     void create(Question question);
 
-    List<Question> list();
+    List<Question> list(String search);
 
     List<Question> listByCreator(String creator);
 
@@ -22,4 +23,8 @@ public interface QuestionMapper {
     void updateView(Question question);
 
     void updateCommentById(Question question);
+
+    List<Question> findAlikeByTag(@Param("id")int id,@Param("tag")String tag );
+
+    List<Question> hostQuestion();
 }

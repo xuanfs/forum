@@ -29,34 +29,36 @@
                     </div>
                     <div class="media-body">
                         <h4 class="media-heading" ><a th:href="@{'/question/'+${question.id}}" th:text="${question.title}" ></a></h4>
-                        <span><a th:href="@{'/question/'+${question.id}}" th:text="${question.description}"></a></span><br>
+                        <div class="content_text">
+                            <a th:href="@{'/question/'+${question.id}}" th:text="${question.description}"></a>
+                        </div>
                         <span class="text-desc"> <span th:text="${question.commentCount}"></span> 个回复 • <span th:text="${question.viewCount}"></span> 次浏览 • <span th:text="${#dates.format(question.gmtCreate,'yyyy-MM-dd HH:mm')}"></span></span>
                     </div>
-                    <hr>
+                    <hr class="index_hr">
                 </div>
                 <!--分页-->
                 <nav aria-label="Page navigation" class="btn-publish">
                     <ul class="pagination">
                         <li th:if="${page >= 3}">
-                            <a th:href="@{/(pageNumber=1)}" aria-label="Previous">
+                            <a th:href="@{/(pageNumber=1,search=${search})}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
                         <li th:if="${page > 1}">
-                            <a th:href="@{/(pageNumber=${page}-1)}" aria-label="Previous">
+                            <a th:href="@{/(pageNumber=${page}-1,search=${search})}" aria-label="Previous">
                                 <span aria-hidden="true">&lt;</span>
                             </a>
                         </li>
 
-                        <li th:each="pageNum:${pages}" th:class="${pageNum == page}? 'active' : ''"> <a th:text="${pageNum}" th:href="@{/(pageNumber=${pageNum})}"  ></a></li>
+                        <li th:each="pageNum:${pages}" th:class="${pageNum == page}? 'active' : ''"> <a th:text="${pageNum}" th:href="@{/(pageNumber=${pageNum},search=${search})}"  ></a></li>
 
                         <li th:if="${page < pageMax}">
-                            <a th:href="@{/(pageNumber=${page}+1)}" aria-label="Previous">
+                            <a th:href="@{/(pageNumber=${page}+1,search=${search})}" aria-label="Previous">
                                 <span aria-hidden="true">&gt;</span>
                             </a>
                         </li>
                         <li th:if="${pageMax >= (page+2)}">
-                            <a th:href="@{/(pageNumber=${pageMax})}" aria-label="Next">
+                            <a th:href="@{/(pageNumber=${pageMax},search=${search})}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
@@ -64,11 +66,22 @@
                 </nav>
             </div>
             <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h4>站长微信</h4>
+                <span>
+                    <img src="/img/WeChat.jpg" width="150px" height="150px">
+                </span>
                 <h3>热门话题</h3>
-
+                <ul class="alike_question_list">
+                    <li th:each="host:${hostQuestion}">
+                        <a th:href="${'/question/'+host.id}" th:text="${host.title}"></a>
+                    </li>
+                </ul>
 
             </div>
         </div>
+    </div>
+    <div th:include="footer:: foot">
+
     </div>
 </body>
 </html>

@@ -26,7 +26,13 @@
     </update>
 
     <select id="list" resultType="cn.xuanfs.forum.entity.Question" >
-        select * from question order by gmt_create desc
+        select * from question
+        <where>
+            <if test="search != null and search != ''">
+                title regexp #{search}
+            </if>
+        </where>
+        order by gmt_create desc
     </select>
 
     <select id="listByCreator" resultType="cn.xuanfs.forum.entity.Question">
@@ -37,4 +43,11 @@
         select * from question where id = #{id}
     </select>
 
+    <select id="findAlikeByTag" resultType="cn.xuanfs.forum.entity.Question">
+        select * from question where id !=#{id} and tag regexp #{tag} ORDER BY view_count DESC LIMIT 0,15
+    </select>
+
+    <select id="hostQuestion" resultType="cn.xuanfs.forum.entity.Question">
+        select * from question order by view_count desc limit 0,15
+    </select>
 </mapper>

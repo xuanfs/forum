@@ -29,9 +29,12 @@ public class QuestionController {
     public String question(@PathVariable(name = "id")Long id,
                            Model model){
         Question question = questionService.findById(id);
+
+        List<Question> alikeQuestion = questionService.findAlikeByTag(question);
         List<Comment> comments = commentService.findCommentByParentId(CommentTypeEnum.COMMENT.getType(),id);
         model.addAttribute("question",question);
         model.addAttribute("comments",comments);
+        model.addAttribute("alikeQuestion",alikeQuestion);
         return "question";
     }
 }

@@ -15,5 +15,7 @@ public interface CommentMapper {
 
     Comment findCommentById(Long parentId);
 
+    Comment findComment(int id);
+
     void updateCommentCount(int id);
 }

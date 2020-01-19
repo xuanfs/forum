@@ -1,10 +1,14 @@
 package cn.xuanfs.forum.controller;
 
+import cn.xuanfs.forum.entity.Notification;
 import cn.xuanfs.forum.entity.Question;
 import cn.xuanfs.forum.entity.User;
 import cn.xuanfs.forum.mapper.UserMapper;
+import cn.xuanfs.forum.service.NotificationService;
 import cn.xuanfs.forum.service.QuestionService;
 import cn.xuanfs.forum.util.ForumUtil;
+import cn.xuanfs.forum.util.NotificationStatusEnum;
+import cn.xuanfs.forum.util.PageNumUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author xzj
@@ -32,38 +37,46 @@ public class ProfileController {
     @Autowired
     private ForumUtil forumUtil;
 
-    private ArrayList arrayList = new ArrayList();
+    @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
+    private PageNumUtil pageNumUtil;
     
     @GetMapping("/profile/{action}")
     public String profile(@PathVariable(name = "action")String action,
                           Model model, HttpServletRequest request,
                           @RequestParam(name = "pageNumber",required = false,defaultValue = "1")int pageNumber){
         User user = (User) request.getSession().getAttribute("user");
-
+        if(user == null){
+            return "redirect:/";
+        }
+        Page page = PageHelper.startPage(pageNumber, 5);
+        List<Notification> newNotifyByReceiver = notificationService.findNewNotifyByReceiver(user.getId());
         if("questions".equals(action)){
-            Page page = PageHelper.startPage(pageNumber, 5);
+            Page page1 = PageHelper.startPage(pageNumber, 5);
             List<Question> questions = questionService.listByCreator(String.valueOf(user.getId()));
-            arrayList.clear();
-            for (int i = 2; i > 0; i--) {
-                if(page.getPageNum()-i >= 1){
-                    arrayList.add(page.getPageNum()-i);
-                }
-            }
-            for(int i=0;i<3;i++){
-                if(page.getPageNum()+i<=page.getPages()){
-                    arrayList.add(page.getPageNum()+i);
-                }
-            }
-            model.addAttribute("pageMax",page.getPages());
+            List arrayList = pageNumUtil.getPageNub(page1);
+            model.addAttribute("pageMax",page1.getPages());
             model.addAttribute("questions",questions);
             model.addAttribute("pages",arrayList);
-            model.addAttribute("page",page.getPageNum());
+            model.addAttribute("page",page1.getPageNum());
             model.addAttribute("section","question");
             model.addAttribute("sectionName","我的提问");
         }else if ("replies".equals(action)){
+            List<Notification> notificationList = forumUtil.notificationComplete(newNotifyByReceiver);
+            List arrayList = pageNumUtil.getPageNub(page);
+            model.addAttribute("pageMax",page.getPages());
+            model.addAttribute("newNotify",notificationList);
+            model.addAttribute("pages",arrayList);
+            model.addAttribute("page",page.getPageNum());
             model.addAttribute("section","replies");
             model.addAttribute("sectionName","最新回复");
         }
+        List<Notification> collect = newNotifyByReceiver.stream().filter(notification ->
+                notification.getStatus() == 0
+        ).collect(Collectors.toList());
+        request.getSession().setAttribute("notifyNub",collect.size());
         return "profile";
 
     }

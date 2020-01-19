@@ -43,10 +43,10 @@ public class PublishController {
     @PostMapping("/publish")
     public String doPublish(Question question, HttpServletRequest request, Model model){
         //判断标题和问题是否为空
-        if(question.getTitle()==""||question.getDescription()==""){
+        if(question.getTitle()==""||question.getDescription()==""||question.getTag()==""){
             model.addAttribute("title",question.getTitle());
             model.addAttribute("description",question.getDescription());
-            model.addAttribute("msg","标题或问题不能为空");
+            model.addAttribute("msg","标题或问题或标题不能为空");
             return "publish";
         }
 

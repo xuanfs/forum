@@ -4,9 +4,12 @@ import cn.xuanfs.forum.entity.Comment;
 import cn.xuanfs.forum.entity.Question;
 import cn.xuanfs.forum.entity.User;
 import cn.xuanfs.forum.exception.CustomException;
+import cn.xuanfs.forum.mapper.NotificationMapper;
 import cn.xuanfs.forum.mapper.QuestionMapper;
 import cn.xuanfs.forum.service.CommentService;
+import cn.xuanfs.forum.service.NotificationService;
 import cn.xuanfs.forum.util.CommentTypeEnum;
+import cn.xuanfs.forum.util.NotificationEnum;
 import cn.xuanfs.forum.util.ResponseApi;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +34,9 @@ public class CommentController {
     @Autowired
     private QuestionMapper questionMapper;
 
+    @Autowired
+    private NotificationService notificationService;
+
     private Map<String,Object> map = new HashMap<>();
 
 
@@ -47,6 +53,10 @@ public class CommentController {
             return map;
         }
         //判断一二级评论
+        Date date = new Date();
+        comment.setGmtModified(date);
+        comment.setGmtCreate(date);
+        comment.setCommentator(user.getId());
         if(comment.getType()==CommentTypeEnum.COMMENT.getType()){
             Question question = questionMapper.findById(comment.getParentId());
             if(question == null){
@@ -54,6 +64,7 @@ public class CommentController {
                 return map;
             }
             questionMapper.updateCommentById(question);
+            notificationService.createNotify(comment,question.getCreator(),NotificationEnum.REPLY_OUESTION,date);
         }else{
             Comment isComment = commentService.findCommentById(comment.getParentId());
             if (isComment == null){
@@ -61,13 +72,8 @@ public class CommentController {
                 return map;
             }
             commentService.updateCommentCount(comment.getParentId().intValue());
+            notificationService.createNotify(comment,isComment.getCommentator(),NotificationEnum.REPLY_COMMENT,date);
         }
-
-
-        Date date = new Date();
-        comment.setGmtModified(date);
-        comment.setGmtCreate(date);
-        comment.setCommentator(user.getId());
 
         int insert = commentService.insert(comment);
         if(insert<=0){
@@ -75,10 +81,14 @@ public class CommentController {
             map.put("msg",CustomException.Status.CommentError.getMessage());
             return map;
         }
+        int unread = notificationService.getUnread(user.getId());
+        request.getSession().setAttribute("notifyNub",unread);
         map.put("code",CustomException.Status.CommentSuccess.getCode());
         map.put("msg",CustomException.Status.CommentSuccess.getMessage());
         return map;
     }
+
+
 
     @ResponseBody
     @GetMapping("/subComment/{id}")

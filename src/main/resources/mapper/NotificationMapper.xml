@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- namespace指定和哪个Mapper映射器接口对应 -->
+<mapper namespace="cn.xuanfs.forum.mapper.NotificationMapper">
+    <insert id="insert" parameterType="cn.xuanfs.forum.entity.Notification">
+        insert into notification (
+          notifier,receiver,outerId,type,gmt_create,status
+        ) value (
+          #{notifier},#{receiver},#{outerId},#{type},#{gmtCreate},#{status}
+        )
+    </insert>
+
+    <select id="findNewNotifyByReceiver" resultType="cn.xuanfs.forum.entity.Notification">
+        select * from notification where receiver = #{receiver}  order by status,gmt_create desc
+    </select>
+
+    <select id="findNotifyById" resultType="cn.xuanfs.forum.entity.Notification">
+        select * from notification where id = #{id}
+    </select>
+
+    <update id="read">
+        UPDATE notification SET STATUS=1 WHERE id =#{id}
+    </update>
+
+</mapper>

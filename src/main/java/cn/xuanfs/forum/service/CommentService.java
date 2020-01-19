@@ -36,4 +36,8 @@ public class CommentService {
     public void updateCommentCount(int id) {
         commentMapper.updateCommentCount(id);
     }
+
+    public Comment findComment(int outerId) {
+        return commentMapper.findComment(outerId);
+    }
 }

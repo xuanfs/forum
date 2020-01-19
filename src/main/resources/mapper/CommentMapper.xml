@@ -17,6 +17,9 @@
         select * from comment where id = #{parentId}
     </select>
 
+    <select id="findComment" resultType="cn.xuanfs.forum.entity.Comment">
+        select * from comment where id = #{id}
+    </select>
     <update id="updateCommentCount">
         update `comment` set comment_count=comment_count+1 where id= #{id}
     </update>

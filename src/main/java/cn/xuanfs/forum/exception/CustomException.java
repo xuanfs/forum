@@ -23,7 +23,7 @@ public class CustomException extends RuntimeException{
 
 
     public enum Status{
-
+        NotifyNull(400,"通知不存在！"),
         SubCommentError(400,"您评论的回复不存在，要不换个评论试试？"),
         QuestionError(400,"您查找的问题不在，要不换个问题试试？"),
         LoginError(1001,"请先登录"),

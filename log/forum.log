@@ -1,0 +1,16 @@
+2020-01-19 14:37:55.855  INFO 7876 --- [main] cn.xuanfs.forum.ForumApplication         : Starting ForumApplication on PC201704051001 with PID 7876 (E:\eclipse\forum\target\classes started by Administrator in E:\eclipse\forum)
+2020-01-19 14:37:55.860  INFO 7876 --- [main] cn.xuanfs.forum.ForumApplication         : No active profile set, falling back to default profiles: default
+2020-01-19 14:37:57.379  INFO 7876 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8888 (http)
+2020-01-19 14:37:57.389  INFO 7876 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2020-01-19 14:37:57.389  INFO 7876 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.29]
+2020-01-19 14:37:57.520  INFO 7876 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2020-01-19 14:37:57.520  INFO 7876 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1524 ms
+2020-01-19 14:37:58.081  INFO 7876 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2020-01-19 14:37:58.217  INFO 7876 --- [main] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2020-01-19 14:37:58.535  INFO 7876 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8888 (http) with context path ''
+2020-01-19 14:37:58.538  INFO 7876 --- [main] cn.xuanfs.forum.ForumApplication         : Started ForumApplication in 3.593 seconds (JVM running for 4.977)
+2020-01-19 14:38:07.566  INFO 7876 --- [http-nio-8888-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-01-19 14:38:07.567  INFO 7876 --- [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2020-01-19 14:38:07.575  INFO 7876 --- [http-nio-8888-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 8 ms
+2020-01-19 14:38:07.651  INFO 7876 --- [http-nio-8888-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2020-01-19 14:38:07.846  INFO 7876 --- [http-nio-8888-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
