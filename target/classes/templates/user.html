@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>镇杰社区-个人信息</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/bootstrap-theme.css">
+    <link rel="stylesheet" href="/css/forum.css">
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/bootstrap.js"></script>
+</head>
+<body>
+    <div th:include="navigation:: nav">
+    </div>
+    <div class="container-fluid main">
+        <div class="row">
+            <div class="col-lg-9 col-md-6 col-sm-6 col-xs-6">
+                <h2><span class="glyphicon glyphicon-list" aria-hidden="true"></span> 个人信息</h2>
+                <hr>
+                <div >
+                    <form action="/avatarUrl" method="post" enctype="multipart/form-data">
+                        <img th:src="${session.user.avatarUrl}" class="img-thumbnail" width="80px" height="80px">
+                        <label  class="btn btn-success file" >更换头像
+                            <input type="file" name="headImage" accept="image/png,image/jpeg" style="display: none;">
+                        </label>
+                        <input type="submit" value="确定" class="btn btn-success file">
+                    </form>
+                    <h4>账号:<span th:text="${session.user.accoutId}"></span></h4>
+                    <h4>昵称:<span th:text="${session.user.name}"></span></h4>
+                </div>
+
+            </div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <h4>站长微信</h4>
+                <span>
+                    <img src="/img/WeChat.jpg" width="150px" height="150px">
+                </span>
+                <hr>
+                <h5>GitHub登录用户头像以GitHub为准</h5>
+                <h5>修改密码可联系站长</h5>
+            </div>
+        </div>
+    </div>
+    <div th:include="footer:: foot">
+    </div>
+</body>
+</html>

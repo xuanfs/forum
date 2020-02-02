@@ -44,9 +44,9 @@ body{
     margin-bottom: 15px;
 }
 .login{
-    margin-top: 100px;
-    margin-left: 250px;
-    width: 700px;
+    margin-top: 70px;
+    margin-left: 200px;
+    width: 400px;
 }
 .comment_hr{
     margin-top: 0px;
@@ -103,4 +103,7 @@ body{
     color: #666;
     text-align: center;
     margin-bottom: 15px;
+}
+.file{
+    margin-top: 45px;
 }

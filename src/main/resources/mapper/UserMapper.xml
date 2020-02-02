@@ -14,8 +14,12 @@
             where id = #{id}
     </update>
 
+    <update id="headImage" parameterType="java.lang.String">
+        update user set avatar_url = #{headImage} where id = #{id}
+    </update>
+
     <select id="login" parameterType="java.util.Map" resultType="cn.xuanfs.forum.entity.User">
-        select * from user where name = #{username} and token = #{password}
+        select * from user where accout_id = #{username} and token = #{password}
     </select>
 
     <select id="findById" resultType="cn.xuanfs.forum.entity.User">

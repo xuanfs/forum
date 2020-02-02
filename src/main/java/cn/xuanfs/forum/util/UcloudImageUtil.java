@@ -41,7 +41,6 @@ public class UcloudImageUtil {
         // 对象操作需要ObjectConfig来配置您的地区和域名后缀
         ObjectConfig config = new ObjectConfig(region, "ufileos.com");
         name.delete(0,name.length());
-        System.out.println("name:"+name);
         name.append(UUID.randomUUID().toString() + fileName);
 
 

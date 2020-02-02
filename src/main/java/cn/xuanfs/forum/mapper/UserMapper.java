@@ -3,6 +3,7 @@ package cn.xuanfs.forum.mapper;
 import cn.xuanfs.forum.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.Map;
@@ -21,4 +22,6 @@ public interface UserMapper {
     User findByAccoutId(String accoutId);
 
     void update(User user);
+
+    void headImage(@Param("headImage")String headImage,@Param("id")String id);
 }

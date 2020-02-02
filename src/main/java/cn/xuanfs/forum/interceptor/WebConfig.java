@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * 拦截器
  * @author xzj
  */
-//@Configuration
+@Configuration
 public class WebConfig implements WebMvcConfigurer {
 
     @Autowired
@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
 
         registry.addInterceptor(sessionInterceptor).addPathPatterns("/**")
-                .excludePathPatterns("/","/callback","/static/**","/question/**");
+                .excludePathPatterns("/","/callback","/css/**","/images/**","/img/**","/fonts/**","/editormd/**","/js/**","/question/**","/login");
     }
 
 

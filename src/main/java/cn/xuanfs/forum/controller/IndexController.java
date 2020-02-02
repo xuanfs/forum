@@ -8,6 +8,7 @@ import cn.xuanfs.forum.service.QuestionService;
 import cn.xuanfs.forum.util.PageNumUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,6 +28,7 @@ import java.util.List;
  * @author xzj
  */
 @Controller
+@Slf4j
 public class IndexController {
 
     @Autowired
@@ -55,6 +57,7 @@ public class IndexController {
         if (user != null){
             int unread = notificationService.getUnread(user.getId());
             request.getSession().setAttribute("notifyNub",unread);
+            log.info(user.getName()+"登录到论坛首页-----------");
         }
         Page page = PageHelper.startPage(pageNumber, 5);
         List<Question> questions = questionService.list(search);
@@ -69,6 +72,11 @@ public class IndexController {
         model.addAttribute("search",search);
         model.addAttribute("hostQuestion",hostQuestion);
         return "index";
+    }
+
+    @GetMapping("/user")
+    public String toUser(){
+        return "user";
     }
 
     @GetMapping("/logout")
